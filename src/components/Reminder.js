@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import emailjs from "emailjs-com"; // Asegúrate de instalar la librería 'emailjs-com'
+import emailjs from "emailjs-com";
 
 const Reminder = ({ event }) => {
   const [isReminderSent, setIsReminderSent] = useState(false);
 
-  // Función para enviar el recordatorio por correo electrónico
   const sendReminderEmail = async () => {
     try {
       const templateParams = {
@@ -31,11 +30,16 @@ const Reminder = ({ event }) => {
   };
 
   return (
-    <div>
+    <div className="p-4 border rounded">
       {isReminderSent ? (
-        <p>Recordatorio enviado</p>
+        <p className="text-green-500 font-semibold">Recordatorio enviado</p>
       ) : (
-        <button onClick={sendReminderEmail}>Enviar Recordatorio</button>
+        <button
+          onClick={sendReminderEmail}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Enviar Recordatorio
+        </button>
       )}
     </div>
   );

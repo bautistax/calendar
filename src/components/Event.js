@@ -4,7 +4,6 @@ const Event = ({ event, onEditEvent }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEvent, setEditedEvent] = useState({ ...event });
 
-  // Manejar cambios en los campos del evento editado
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedEvent({
@@ -13,48 +12,63 @@ const Event = ({ event, onEditEvent }) => {
     });
   };
 
-  // Manejar el envío del formulario de edición
   const handleEditSubmit = () => {
     onEditEvent(editedEvent);
     setIsEditing(false);
   };
 
   return (
-    <div>
+    <div className="border rounded p-4 mb-4">
       {isEditing ? (
         <div>
           <input
+            className="w-full mb-2 px-2 py-1 border rounded"
             type="text"
             name="title"
             value={editedEvent.title}
             onChange={handleInputChange}
           />
           <input
+            className="w-full mb-2 px-2 py-1 border rounded"
             type="date"
             name="date"
             value={editedEvent.date}
             onChange={handleInputChange}
           />
           <input
+            className="w-full mb-2 px-2 py-1 border rounded"
             type="time"
             name="time"
             value={editedEvent.time}
             onChange={handleInputChange}
           />
           <textarea
+            className="w-full mb-2 px-2 py-1 border rounded"
             name="description"
             value={editedEvent.description}
             onChange={handleInputChange}
           />
-          <button onClick={handleEditSubmit}>Guardar Cambios</button>
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            onClick={handleEditSubmit}
+          >
+            Guardar Cambios
+          </button>
         </div>
       ) : (
         <div>
-          <span>{event.title}</span>
-          <span>{event.date}</span>
-          <span>{event.time}</span>
-          <span>{event.description}</span>
-          <button onClick={() => setIsEditing(true)}>Editar</button>
+          <span className="text-xl font-semibold">{event.title}</span>
+          <div className="flex">
+            <span className="text-gray-600 mr-4">{event.date}</span>
+            <span className="text-gray-600">{event.time}</span>
+          </div>
+          <p className="mt-2">{event.description}</p>
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            onClick={() => setIsEditing(true)}
+          >
+            Editar
+          </button>
         </div>
       )}
     </div>

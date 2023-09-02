@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 
 const EventForm = ({ onAddEvent, editedEvent }) => {
-  // Estado local para el formulario
   const [eventData, setEventData] = useState({
     title: editedEvent ? editedEvent.title : "",
     date: editedEvent ? editedEvent.date : "",
     time: editedEvent ? editedEvent.time : "",
     description: editedEvent ? editedEvent.description : "",
+    color: editedEvent ? editedEvent.color || "#ffffff" : "#ffffff",
   });
 
-  // Manejar cambios en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEventData({
@@ -18,7 +17,6 @@ const EventForm = ({ onAddEvent, editedEvent }) => {
     });
   };
 
-  // Manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!eventData.title || !eventData.date || !eventData.time) {
@@ -26,25 +24,27 @@ const EventForm = ({ onAddEvent, editedEvent }) => {
       return;
     }
 
-    // Llamar a la función onAddEvent para agregar/editar el evento
     onAddEvent(eventData);
 
-    // Limpiar el formulario
     setEventData({
       title: "",
       date: "",
       time: "",
       description: "",
+      color: "#ffffff",
     });
   };
 
   return (
-    <div>
-      <h2>{editedEvent ? "Editar Evento" : "Agregar Evento"}</h2>
+    <div className="border rounded p-4 mb-4">
+      <h2 className="text-xl font-semibold mb-4">
+        {editedEvent ? "Editar Evento" : "Agregar Evento"}
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Título del Evento</label>
+        <div className="mb-2">
+          <label className="block font-semibold mb-1">Título del Evento</label>
           <input
+            className="w-full px-2 py-1 border rounded"
             type="text"
             name="title"
             value={eventData.title}
@@ -52,9 +52,10 @@ const EventForm = ({ onAddEvent, editedEvent }) => {
             required
           />
         </div>
-        <div>
-          <label>Fecha</label>
+        <div className="mb-2">
+          <label className="block font-semibold mb-1">Fecha</label>
           <input
+            className="w-full px-2 py-1 border rounded"
             type="date"
             name="date"
             value={eventData.date}
@@ -62,9 +63,10 @@ const EventForm = ({ onAddEvent, editedEvent }) => {
             required
           />
         </div>
-        <div>
-          <label>Hora</label>
+        <div className="mb-2">
+          <label className="block font-semibold mb-1">Hora</label>
           <input
+            className="w-full px-2 py-1 border rounded"
             type="time"
             name="time"
             value={eventData.time}
@@ -72,16 +74,32 @@ const EventForm = ({ onAddEvent, editedEvent }) => {
             required
           />
         </div>
-        <div>
-          <label>Descripción</label>
+        <div className="mb-2">
+          <label className="block font-semibold mb-1">Descripción</label>
           <textarea
+            className="w-full px-2 py-1 border rounded"
             name="description"
             value={eventData.description}
             onChange={handleInputChange}
           />
         </div>
+        <div className="mb-2">
+          <label className="block font-semibold mb-1">Color</label>
+          <input
+            className="w-full px-2 py-1 border rounded"
+            type="color"
+            name="color"
+            value={eventData.color}
+            onChange={handleInputChange}
+          />
+        </div>
         <div>
-          <button type="submit">{editedEvent ? "Editar" : "Agregar"}</button>
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            type="submit"
+          >
+            {editedEvent ? "Editar" : "Agregar"}
+          </button>
         </div>
       </form>
     </div>

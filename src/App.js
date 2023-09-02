@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import "./App.css"; // Asegúrate de importar el archivo CSS para aplicar estilos.
-import Calendar from "./Calendar";
-import EventForm from "./EventForm";
-import EventList from "./EventList";
-import Event from "./Event";
+import "./App.css";
+import "tailwindcss/tailwind.css";
+import Calendar from "./components/Calendar.js";
+import EventForm from "./components/EventForm.js";
+import EventList from "./components/EventList.js";
+import Event from "./components/Event.js";
 
 function App() {
-  // Estado para gestionar la lista de eventos
   const [events, setEvents] = useState([]);
-  // Estado para gestionar el evento que se está editando
   const [editedEvent, setEditedEvent] = useState(null);
 
-  // Función para agregar un nuevo evento
   const addEvent = (newEvent) => {
     setEvents([...events, newEvent]);
   };
 
-  // Función para editar un evento existente
   const editEvent = (editedEvent) => {
     const updatedEvents = events.map((event) =>
       event.id === editedEvent.id ? editedEvent : event
@@ -25,30 +22,34 @@ function App() {
     setEditedEvent(null);
   };
 
-  // Función para eliminar un evento
   const deleteEvent = (eventId) => {
     const updatedEvents = events.filter((event) => event.id !== eventId);
     setEvents(updatedEvents);
   };
 
   return (
-    <div className="App">
-      <h1>Calendario</h1>
-      <div className="flex">
-        <div className="w-1/2 p-4">
-          <EventForm onAddEvent={addEvent} editedEvent={editedEvent} />
-          <EventList events={events} onDeleteEvent={deleteEvent} />
+    <div className="bg-gray-100 min-h-screen">
+      <header className="bg-blue-500 py-4 text-white text-center">
+        <h1 className="text-3xl font-semibold">Calendario</h1>
+      </header>
+      <div className="container mx-auto p-4">
+        <div className="flex">
+          <div className="w-1/2 p-4">
+            <EventForm onAddEvent={addEvent} editedEvent={editedEvent} />
+            <EventList events={events} onDeleteEvent={deleteEvent} />
+          </div>
+          <div className="w-1/2 p-4">
+            {/* Aplicar estilos al calendario aquí */}
+            <Calendar events={events} onEditEvent={setEditedEvent} />
+          </div>
         </div>
-        <div className="w-1/2 p-4">
-          <Calendar events={events} onEditEvent={setEditedEvent} />
-        </div>
+        {editedEvent && (
+          <div className="p-4">
+            <h2 className="text-xl font-semibold">Editando Evento</h2>
+            <Event event={editedEvent} onEditEvent={editEvent} />
+          </div>
+        )}
       </div>
-      {editedEvent && (
-        <div className="p-4">
-          <h2>Editando Evento</h2>
-          <Event event={editedEvent} onEditEvent={editEvent} />
-        </div>
-      )}
     </div>
   );
 }
