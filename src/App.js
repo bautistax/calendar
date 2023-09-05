@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import "tailwindcss/tailwind.css";
-import Calendar from "./components/Calendar.js";
+import Calendar from "./components/calendar.js";
 import EventForm from "./components/EventForm.js";
 import EventList from "./components/EventList.js";
 import Event from "./components/Event.js";
@@ -11,6 +11,14 @@ function App() {
   const [editedEvent, setEditedEvent] = useState(null);
 
   const addEvent = (newEvent) => {
+    const eventWithColor = { ...newEvent, color: newEvent.color };
+    setEvents([...events, eventWithColor]);
+  };
+  
+
+  // Función para manejar la actualización de los eventos después de agregar uno nuevo
+  const handleEventAdded = (newEvent) => {
+    // Actualiza el estado de los eventos con el nuevo evento
     setEvents([...events, newEvent]);
   };
 
@@ -21,11 +29,11 @@ function App() {
     setEvents(updatedEvents);
     setEditedEvent(null);
   };
-
   const deleteEvent = (eventId) => {
     const updatedEvents = events.filter((event) => event.id !== eventId);
     setEvents(updatedEvents);
   };
+  
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -35,12 +43,13 @@ function App() {
       <div className="container mx-auto p-4">
         <div className="flex">
           <div className="w-1/2 p-4">
-            <EventForm onAddEvent={addEvent} editedEvent={editedEvent} />
-            <EventList events={events} onDeleteEvent={deleteEvent} />
-          </div>
-          <div className="w-1/2 p-4">
             {/* Aplicar estilos al calendario aquí */}
             <Calendar events={events} onEditEvent={setEditedEvent} />
+          </div>
+          <div className="w-1/2 p-4">
+          <EventForm onAddEvent={addEvent} onEventAdded={handleEventAdded} editedEvent={editedEvent} />
+          <EventList events={events} onDeleteEvent={deleteEvent} onEditEvent={editEvent} />
+
           </div>
         </div>
         {editedEvent && (

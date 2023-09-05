@@ -18,6 +18,7 @@ const Calendar = ({ events, onEditEvent }) => {
     return newDate;
   });
 
+ 
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Vista Mensual del Calendario</h2>
@@ -33,6 +34,9 @@ const Calendar = ({ events, onEditEvent }) => {
         {/* Renderizar celdas para cada día de la semana */}
         {dates.map((date) => (
           <div key={date.toISOString()} className="relative">
+            <div className="absolute top-0 right-0 p-2 text-lg font-semibold text-gray-600">
+              {date.getDate()}
+            </div>
             {events
               .filter((event) => new Date(event.date).toDateString() === date.toDateString())
               .map((event) => (
@@ -44,7 +48,13 @@ const Calendar = ({ events, onEditEvent }) => {
                   <div className="text-xs text-blue-600">
                     {formatDate(event.date)}
                   </div>
-                  <div className="font-semibold">{event.title}</div>
+                  <div className="flex items-center">
+                    <div
+                      className="w-4 h-4 rounded-full mr-2"
+                      style={{ backgroundColor: event.color, flexShrink: 0 }}
+                    ></div>
+                    <div className="font-semibold">{event.title}</div>
+                  </div>
                 </div>
               ))}
             {/* Agregar un cuadro vacío si no hay eventos en este día */}
