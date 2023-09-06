@@ -48,6 +48,12 @@ const Event = ({ event, onEditEvent }) => {
             value={editedEvent.description}
             onChange={handleInputChange}
           />
+          <textarea 
+            className="w-full mb-2 px-2 py-1 border rounded"
+            name="color"
+            value={editedEvent.color}
+            onChange={handleInputChange}
+          />
           <button
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             onClick={handleEditSubmit}
@@ -63,12 +69,13 @@ const Event = ({ event, onEditEvent }) => {
             <span className="text-gray-600">{event.time}</span>
           </div>
           <p className="mt-2">{event.description}</p>
-          <button
+          <span className={`inline-block p-1 rounded-full text-white ${event.color}`}>{event.color}</span>
+          {/* <button
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             onClick={() => setIsEditing(true)}
           >
             Editar
-          </button>
+          </button> */}
         </div>
       )}
     </div>

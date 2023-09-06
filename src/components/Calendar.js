@@ -1,71 +1,41 @@
 import React from "react";
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
+import Event from "./Event";
 
 const Calendar = ({ events, onEditEvent }) => {
-  // Función para formatear la fecha
-  const formatDate = (date) => {
-    const options = { weekday: "short", month: "short", day: "numeric" };
-    return new Date(date).toLocaleDateString("es-ES", options);
-  };
+  const today = new Date();
+  const firstDayOfMonth = startOfMonth(today);
+  const lastDayOfMonth = endOfMonth(today);
+  const startOfCalendar = startOfWeek(firstDayOfMonth);
+  const endOfCalendar = endOfWeek(lastDayOfMonth);
 
-  // Crear una matriz de 7 días de la semana
-  const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+  const days = eachDayOfInterval({ start: startOfCalendar, end: endOfCalendar });
 
-  // Crear una matriz de fechas para un rango de 28 días
-  const currentDate = new Date();
-  const dates = Array.from({ length: 28 }, (_, index) => {
-    const newDate = new Date(currentDate);
-    newDate.setDate(currentDate.getDate() + index);
-    return newDate;
-  });
-
- 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Vista Mensual del Calendario</h2>
-      <div className="grid grid-cols-7 gap-2">
-        {/* Renderizar los nombres de los días de la semana */}
-        {daysOfWeek.map((day, index) => (
-          <div key={index} className="text-center font-semibold">
-            {day}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-7 gap-2 mt-2">
-        {/* Renderizar celdas para cada día de la semana */}
-        {dates.map((date) => (
-          <div key={date.toISOString()} className="relative">
-            <div className="absolute top-0 right-0 p-2 text-lg font-semibold text-gray-600">
-              {date.getDate()}
-            </div>
-            {events
-              .filter((event) => new Date(event.date).toDateString() === date.toDateString())
-              .map((event) => (
-                <div
+    <div className="grid grid-cols-7 gap-4">
+      {days.map((day, index) => (
+        <div key={index} className="text-center">
+          <div className="font-semibold">{format(day, "EEEE")}</div>
+          <div className="text-lg">{format(day, "d/MM")}</div>
+          {events.map((event) => {
+            const eventDate = new Date(event.date);
+            if (
+              eventDate.getDate() === day.getDate() &&
+              eventDate.getMonth() === day.getMonth() &&
+              eventDate.getFullYear() === day.getFullYear()
+            ) {
+              return (
+                <Event
                   key={event.id}
-                  className="bg-gray-300 border border-gray-500 p-8 rounded-md cursor-pointer"
-                  onClick={() => onEditEvent(event)}
-                >
-                  <div className="text-xs text-blue-600">
-                    {formatDate(event.date)}
-                  </div>
-                  <div className="flex items-center">
-                    <div
-                      className="w-4 h-4 rounded-full mr-2"
-                      style={{ backgroundColor: event.color, flexShrink: 0 }}
-                    ></div>
-                    <div className="font-semibold">{event.title}</div>
-                  </div>
-                </div>
-              ))}
-            {/* Agregar un cuadro vacío si no hay eventos en este día */}
-            {events
-              .filter((event) => new Date(event.date).toDateString() === date.toDateString())
-              .length === 0 && (
-              <div className="bg-gray-300 border border-gray-500 p-9 rounded-md"></div>
-            )}
-          </div>
-        ))}
-      </div>
+                  event={event}
+                  onEditEvent={onEditEvent}
+                />
+              );
+            }
+            return null;
+          })}
+        </div>
+      ))}
     </div>
   );
 };

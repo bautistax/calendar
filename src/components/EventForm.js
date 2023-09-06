@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const EventForm = ({ onAddEvent, onEventAdded, editedEvent }) => {
+const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditEvent }) => {
   const initialEventData = {
-    title: editedEvent ? editedEvent.title : "",
-    date: editedEvent ? editedEvent.date : "",
-    time: editedEvent ? editedEvent.time : "",
-    description: editedEvent ? editedEvent.description : "",
-    color: editedEvent ? editedEvent.color || "#ffffff" : "#ffffff",
+    title: "",
+    date: "",
+    time: "",
+    description: "",
+    color: "#ffffff",
   };
 
   const [eventData, setEventData] = useState(initialEventData);
+
+  useEffect(() => {
+    if (editedEvent) {
+      setEventData({
+        title: editedEvent.title,
+        date: editedEvent.date.split("T")[0], // Separar fecha y hora
+        time: editedEvent.date.split("T")[1], // Separar fecha y hora
+        description: editedEvent.description,
+        color: editedEvent.color,
+      });
+    } else {
+      setEventData(initialEventData);
+    }
+  }, [editedEvent]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,22 +40,42 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent }) => {
       return;
     }
 
-    // Convertir la fecha seleccionada en una cadena ISO
+    // Crear una nueva fecha y hora en formato ISO
     const { date, time } = eventData;
     const dateTimeString = `${date}T${time}`;
     const localDate = new Date(dateTimeString);
 
     if (!isNaN(localDate)) {
       const isoDate = localDate.toISOString();
-      const updatedEventData = {
-        ...eventData,
-        date: isoDate,
-      };
 
-      onAddEvent(updatedEventData);
-      onEventAdded(updatedEventData);
+      if (editedEvent) {
+        // Si estamos editando un evento, llamamos a la función onEditEvent
+        onEditEvent({
+          ...editedEvent,
+          title: eventData.title,
+          date: isoDate,
+          description: eventData.description,
+          color: eventData.color,
+        });
+      } else {
+        // Si estamos agregando un nuevo evento, llamamos a la función onAddEvent
+        onAddEvent({
+          title: eventData.title,
+          date: isoDate,
+          description: eventData.description,
+          color: eventData.color,
+        });
+        onEventAdded({
+          title: eventData.title,
+          date: isoDate,
+          description: eventData.description,
+          color: eventData.color,
+        });
+      }
 
+      // Restablecer el formulario después de agregar o editar
       setEventData(initialEventData);
+      onCloseForm(); // Cerrar el formulario después de agregar o editar
     } else {
       alert("Fecha u hora no válida");
     }
