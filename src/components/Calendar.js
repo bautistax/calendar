@@ -1,6 +1,7 @@
 import React from "react";
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
 import Event from "./Event";
+import 'tailwindcss/tailwind.css';
 
 const Calendar = ({ events, onEditEvent }) => {
   const today = new Date();
@@ -25,11 +26,13 @@ const Calendar = ({ events, onEditEvent }) => {
               eventDate.getFullYear() === day.getFullYear()
             ) {
               return (
-                <Event
-                  key={event.id}
-                  event={event}
-                  onEditEvent={onEditEvent}
-                />
+                <div key={event.id} className={`border rounded p-4 mb-4 ${event.color}`}>
+                  <Event
+                    event={event}
+                    onEditEvent={onEditEvent}
+                  />
+                  <div className="mt-2" style={{ backgroundColor: event.color, height: '10px' }}></div>
+                </div>
               );
             }
             return null;

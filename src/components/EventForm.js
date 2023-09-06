@@ -6,7 +6,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
     date: "",
     time: "",
     description: "",
-    color: "#ffffff",
+    color: "",
   };
 
   const [eventData, setEventData] = useState(initialEventData);

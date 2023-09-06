@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import 'tailwindcss/tailwind.css';
+
 
 const Event = ({ event, onEditEvent }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,7 +20,7 @@ const Event = ({ event, onEditEvent }) => {
   };
 
   return (
-    <div className="border rounded p-4 mb-4">
+    <div className={`border rounded p-4 mb-4 ${event.color}`}>
       {isEditing ? (
         <div>
           <input
@@ -48,12 +50,6 @@ const Event = ({ event, onEditEvent }) => {
             value={editedEvent.description}
             onChange={handleInputChange}
           />
-          <textarea 
-            className="w-full mb-2 px-2 py-1 border rounded"
-            name="color"
-            value={editedEvent.color}
-            onChange={handleInputChange}
-          />
           <button
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             onClick={handleEditSubmit}
@@ -69,13 +65,6 @@ const Event = ({ event, onEditEvent }) => {
             <span className="text-gray-600">{event.time}</span>
           </div>
           <p className="mt-2">{event.description}</p>
-          <span className={`inline-block p-1 rounded-full text-white ${event.color}`}>{event.color}</span>
-          {/* <button
-            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-            onClick={() => setIsEditing(true)}
-          >
-            Editar
-          </button> */}
         </div>
       )}
     </div>

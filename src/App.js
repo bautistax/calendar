@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./App.css";
-import "tailwindcss/tailwind.css";
 import Calendar from "./components/calendar.js";
 import EventForm from "./components/EventForm.js";
 import EventList from "./components/EventList.js";
-import Event from "./components/Event.js";
+import WeeklyCalendar from "./components/weeklyCalendar";
+import "./App.css";
+import "tailwindcss/tailwind.css";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -61,6 +61,7 @@ function App() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Calendario</h2>
               <Calendar events={events} onEditEvent={setEditedEvent} />
+              <WeeklyCalendar events={events} onEditEvent={setEditedEvent} />
             </div>
           )}
         </div>
