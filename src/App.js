@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Calendar from "./components/Calendars.js";
-import EventForm from "./components/EventForm.js";
-import EventList from "./components/EventList.js";
-import WeeklyCalendar from "./components/Weekly.js";
+import Calendar from "./components/Calendar/Calendars.js";
+import EventForm from "./components/EventForm/EventForm.js";
+import EventList from "./components/EventList/EventList.js";
+import WeeklyCalendar from "./components/Weekly/Weekly.js";
 import "./App.css";
 import "tailwindcss/tailwind.css";
 
