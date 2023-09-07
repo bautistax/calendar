@@ -1,6 +1,6 @@
 import React from "react";
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
-import Event from "./Event";
+import Event from "./Event.js";
 import 'tailwindcss/tailwind.css';
 
 const Calendar = ({ events, onEditEvent }) => {

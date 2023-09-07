@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EventForm from "./EventForm"; // Asegúrate de que el componente EventForm esté importado
+import EventForm from "./EventForm.js"; // Asegúrate de que el componente EventForm esté importado
 
 const EventList = ({ events, onDeleteEvent, onEditEvent }) => {
   const [editFormOpen, setEditFormOpen] = useState(false);
