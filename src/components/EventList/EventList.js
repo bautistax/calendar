@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EventForm from "../EventForm/EventForm.js"; // Asegúrate de que el componente EventForm esté importado
+import EventForm from "../EventForm/EventForm.js"; 
 
 const EventList = ({ events, onDeleteEvent, onEditEvent }) => {
   const [editFormOpen, setEditFormOpen] = useState(false);
@@ -39,8 +39,6 @@ const EventList = ({ events, onDeleteEvent, onEditEvent }) => {
       </ul>
       {editFormOpen && (
         <div className="mt-4">
-          {/* Renderiza el formulario de edición aquí */}
-          {/* Asegúrate de pasar editedEvent y una función para cerrar el formulario */}
           <EventForm
             editedEvent={editedEvent}
             onCloseForm={closeEditForm}

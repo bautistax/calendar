@@ -6,6 +6,8 @@ const Event = ({ event, onEditEvent }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEvent, setEditedEvent] = useState({ ...event });
 
+  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedEvent({
@@ -59,10 +61,10 @@ const Event = ({ event, onEditEvent }) => {
         </div>
       ) : (
         <div>
-          <span className="text-xl font-semibold">{event.title}</span>
+          <span className="text-md font-semibold">{event.title}</span>
           <div className="flex">
-            <span className="text-gray-600 mr-4">{event.date}</span>
-            <span className="text-gray-600">{event.time}</span>
+            <span className="text-gray-600 text-left">{event.date} </span>
+            <span className="text-gray-600 text-left">{event.time}</span>
           </div>
           <p className="mt-2">{event.description}</p>
         </div>
