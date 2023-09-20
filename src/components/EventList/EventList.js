@@ -17,7 +17,7 @@ const EventList = ({ events, onDeleteEvent, onEditEvent }) => {
 
   return (
     <div className="p-4 border rounded">
-      <h2 className="text-2xl font-semibold mb-4">Lista de Eventos</h2>
+      <h2 className="text-2xl font-semibold mb-4">List of Events</h2>
       <ul>
         {events.map((event) => (
           <li key={event.id} className="mb-2">
@@ -26,13 +26,13 @@ const EventList = ({ events, onDeleteEvent, onEditEvent }) => {
               onClick={() => onDeleteEvent(event.id)}
               className="bg-red-500 text-white px-2 py-1 ml-2 rounded hover:bg-red-600"
             >
-              Eliminar
+              Delete
             </button>
             <button
               onClick={() => openEditForm(event)}
               className="bg-blue-500 text-white px-2 py-1 ml-2 rounded hover:bg-blue-600"
             >
-              Editar
+              Edit
             </button>
           </li>
         ))}

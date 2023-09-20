@@ -16,7 +16,7 @@ const Calendar = ({ events, onEditEvent }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
       {days.map((day, index) => (
         <div key={index} className="text-center">
-          <div className="border rounded p-4 mb-4">
+          <div className="border rounded p-4 mb-4 bg-slate-300">
             <div className="font-semibold">{format(day, "EEEE")}</div>
             <div className="text-lg">{format(day, "d/MM")}</div>
             {events.map((event) => {

@@ -56,7 +56,7 @@ const Event = ({ event, onEditEvent }) => {
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             onClick={handleEditSubmit}
           >
-            Guardar Cambios
+            Save Changes
           </button>
         </div>
       ) : (

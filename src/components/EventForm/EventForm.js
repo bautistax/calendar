@@ -34,7 +34,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
       [name]: value,
     });
   };
-  console.log(eventData);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,14 +42,14 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
     const { title, date, time, description, color } = eventData;
   
     if (!title || !date || !time) {
-      alert("Por favor, complete todos los campos obligatorios.");
+      alert("Please complete all required fields.");
       return;
     }
   
     const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
   
     if (!time.match(timeRegex)) {
-      alert("Formato de hora no válido. Utilice HH:mm (por ejemplo, 22:50).");
+      alert("Invalid time format. Use HH:mm (for example, 22:50).");
       return;
     }
   
@@ -65,7 +65,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
     const localDate = new Date(year, month, day, hours, minutes);
   
     if (isNaN(localDate)) {
-      alert("Fecha u hora no válida");
+      alert("Invalid date or time");
       return;
     }
   
@@ -83,6 +83,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
       });
     } else {
       onAddEvent({
+        ...initialEventData,
         title,
         date: localDate.toISOString(),
         description,
@@ -117,7 +118,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
-          <label className="block font-semibold mb-1">Título del Evento</label>
+          <label className="block font-semibold mb-1">Event Title</label>
           <input
             className="w-full px-2 py-1 border rounded"
             type="text"
@@ -128,7 +129,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
           />
         </div>
         <div className="mb-2">
-          <label className="block font-semibold mb-1">Fecha</label>
+          <label className="block font-semibold mb-1">Date</label>
           <input
             className="w-full px-2 py-1 border rounded"
             type="date"
@@ -139,7 +140,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
           />
         </div>
         <div className="mb-2">
-          <label className="block font-semibold mb-1">Hora</label>
+          <label className="block font-semibold mb-1">Hour</label>
           <input
             className="w-full px-2 py-1 border rounded"
             type="time"
@@ -150,7 +151,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
           />
         </div>
         <div className="mb-2">
-          <label className="block font-semibold mb-1">Descripción</label>
+          <label className="block font-semibold mb-1">Description</label>
           <textarea
             className="w-full px-2 py-1 border rounded"
             name="description"
@@ -178,7 +179,7 @@ const EventForm = ({ onAddEvent, onEventAdded, editedEvent, onCloseForm, onEditE
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             type="submit"
           >
-            {editedEvent ? "Editar" : "Agregar"}
+            {editedEvent ? "Edit" : "Add"}
           </button>
         </div>
       </form>

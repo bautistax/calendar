@@ -22,13 +22,13 @@ const WeeklyCalendar = ({ events, onEditEvent }) => {
   // Función para formatear la fecha
   const formatDate = (date) => {
     const options = { weekday: "short", month: "short", day: "numeric" };
-    return new Date(date).toLocaleDateString("es-ES", options);
+    return new Date(date).toLocaleDateString("en-US", options);
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Vista Semanal del Calendario</h2>
-      <div className="grid grid-cols-7 gap-2">
+    <div className="py-14">
+      <h2 className="text-xl font-semibold mb-4 ">Weekly Calendar View</h2>
+      <div className="grid grid-cols-7 gap-2 border rounded p-4 mb-4 bg-slate-300">
         {daysOfWeek.map((day, index) => (
           <div key={index} className="text-center font-semibold">
             {formatDate(day)}
@@ -43,8 +43,8 @@ const WeeklyCalendar = ({ events, onEditEvent }) => {
               .map((event) => (
                 <div
                   key={event.id}
-                  className="bg-gray-300 border border-gray-500 p-8 rounded-md cursor-pointer"
-                  onClick={() => onEditEvent(event)}
+                  className="border border-gray-500 p-8 rounded-md"
+                  // onClick={() => onEditEvent(event)}
                 >
                   <div className="text-xs text-blue-600">
                     {formatDate(event.date)}

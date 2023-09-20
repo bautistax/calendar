@@ -36,8 +36,8 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen font-sans">
-      <header className="bg-blue-500 text-white py-4 text-center">
-        <h1 className="text-3xl font-semibold">Mi Calendario</h1>
+      <header className="bg-blue-500 text-white py-4 text-center w-full fixed">
+        <h1 className="text-2xl font-semibold">My Calendar</h1>
         <button
           className="absolute left-4 top-4 text-2xl cursor-pointer"
           onClick={() => setShowForm(!showForm)}
@@ -49,7 +49,7 @@ function App() {
         <div className={`bg-white shadow-md rounded-md p-4 ${showForm ? "md:col-span-1" : "md:col-span-2"}`}>
           {showForm ? (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Nuevo Evento</h2>
+              <h2 className="text-xl font-semibold mb-4">New Event</h2>
               <EventForm
                 onAddEvent={addEvent}
                 onEventAdded={handleEventAdded}
@@ -59,14 +59,14 @@ function App() {
             </div>
           ) : (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Calendario</h2>
+              {/* <h2 className="text-xl font-semibold mb-4 ">Calendar</h2> */}
+              <WeeklyCalendar events={events} onEditEvent={setEditedEvent}  />
               <Calendar events={events} onEditEvent={setEditedEvent} />
-              <WeeklyCalendar events={events} onEditEvent={setEditedEvent} />
             </div>
           )}
         </div>
-        <div className="bg-white shadow-md rounded-md p-4">
-          <h2 className="text-xl font-semibold mb-4">Eventos</h2>
+        <div className=" shadow-md rounded-md p-4 w-screen">
+          <h2 className=" text-xl font-semibold mb-4">Events</h2>
           <EventList
             events={events}
             onDeleteEvent={deleteEvent}
@@ -74,12 +74,6 @@ function App() {
           />
         </div>
       </div>
-      {/* {editedEvent && (
-        <div className="bg-white shadow-md rounded-md p-4 mt-4">
-          <h2 className="text-xl font-semibold mb-4">Editando Evento</h2>
-          <Event event={editedEvent} onEditEvent={editEvent} />
-        </div>
-      )} */}
     </div>
   );
 }
